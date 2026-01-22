@@ -6,6 +6,7 @@ function FormComponent({ onSaved }) {
         description: "",
         author: "",
         date: "",
+        image: "",
     });
 
     // Generieke handler voor het bijwerken van de state
@@ -15,6 +16,20 @@ function FormComponent({ onSaved }) {
             ...formData,
             [name]: value,
         });
+    };
+
+    const handleImageChange = async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setFormData({
+                    ...formData,
+                    image: reader.result.split(',')[1], // Remove data:image/...;base64, prefix
+                });
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     const handleSubmit = async (event) => {
@@ -55,6 +70,10 @@ function FormComponent({ onSaved }) {
             <div>
                 <label htmlFor="date" className="block text-sm font-medium">Publicatiedatum:</label>
                 <input type="datetime-local" id="date" name="date" value={formData.date} onChange={handleInputChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+            </div>
+            <div>
+                <label htmlFor="image" className="block text-sm font-medium">Afbeelding:</label>
+                <input type="file" id="image" name="image" accept="image/*" onChange={handleImageChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
             </div>
             <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Verzenden</button>
         </form>
