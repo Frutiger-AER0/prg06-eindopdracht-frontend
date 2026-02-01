@@ -9,7 +9,6 @@ function FormComponent({ onSaved }) {
         image: "",
     });
 
-    // Generieke handler voor het bijwerken van de state
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -25,7 +24,7 @@ function FormComponent({ onSaved }) {
             reader.onload = () => {
                 setFormData({
                     ...formData,
-                    image: reader.result.split(',')[1], // Remove data:image/...;base64, prefix
+                    image: reader.result.split(',')[1],
                 });
             };
             reader.readAsDataURL(file);
@@ -35,7 +34,7 @@ function FormComponent({ onSaved }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch("http://145.24.237.31:8069/comics/", {
+            const response = await fetch("http://145.24.237.31:8069/comics", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

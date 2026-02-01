@@ -63,8 +63,8 @@ function ComicDetail() {
             <p className="mb-6">{comic.author}</p>
 
             <div className="space-x-2">
-                <button onClick={() => navigate(-1)} className="px-3 py-1 border rounded">Back</button>
-                <Link to={`/comic/${id}/edit`} className="px-3 py-1 border rounded bg-blue-600 text-white">Edit</Link>
+                <button onClick={() => navigate('/')} className="px-3 py-1 border rounded">Back</button>
+                <Link to={`/comics/${id}/edit`} className="px-3 py-1 border rounded bg-blue-600 text-white">Edit</Link>
                 {canDelete && (
                     <button onClick={handleDelete} disabled={deleting} className="px-3 py-1 border rounded bg-red-600 text-white">
                         {deleting ? "Deleting..." : "Delete"}
